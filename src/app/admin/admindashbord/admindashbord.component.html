@@ -1,0 +1,81 @@
+<div class="min-h-screen bg-gray-900 text-white font-sans">
+  <!-- Main Content -->
+<div class="grid grid-cols-4 gap-4 p-6 auto-rows-fr">
+  <!-- User Info -->
+  <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg text-center h-full row-span-2 flex flex-col items-center justify-center">
+    <img src="images/chango.png" alt="Usuario" class="w-25 h-25 rounded-full">
+    <h4 class="mt-4 text-lg text-white">¡Hola de nuevo!</h4>
+    <div class="mt-6 flex justify-center space-x-4">
+        <a href="mailto:correo@ejemplo.com" class="bg-blue-600 p-2 rounded-full hover:bg-blue-700">
+            <img src="images/email.png" alt="Correo" class="w-6 h-6">
+        </a>
+        <a href="https://static.vecteezy.com/system/resources/previews/012/162/809/non_2x/whatsapp-logo-3d-render-free-png.png" class="bg-green-600 p-2 rounded-full hover:bg-green-700">
+            <img src="images/what.png" alt="WhatsApp" class="w-6 h-6">
+        </a>
+    </div>
+</div>
+
+  <!-- Task Form -->
+  <div class="col-span-2 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg">
+    <!-- Contenido centrado -->
+    <h2 class="text-lg font-semibold">Muestreo de encuestas</h2>
+    <div class="flex flex-col items-center justify-center space-y-4">
+  
+      <!-- Selección de pregunta -->
+      <div class="w-full max-w-sm">
+        <label for="pregunta" class="block text-white">Selecciona una pregunta:</label>
+        <select id="pregunta" [(ngModel)]="preguntaSeleccionada" (change)="cargarRespuestas()" class="w-full mt-2 p-2 rounded-lg bg-white text-black">
+          <option *ngFor="let pregunta of preguntas" [value]="pregunta.id" class="text-black">{{ pregunta.pregunta }}</option>
+        </select>
+      </div>
+  
+      <!-- Selección de tipo de gráfico -->
+      <div class="w-full max-w-sm">
+        <label class="block text-white mt-4">Selecciona el tipo de gráfico:</label>
+        <div class="mt-2">
+          <div class="flex items-center">
+            <input type="checkbox" id="bar" [(ngModel)]="tiposGraficos.bar" class="mr-2">
+            <label for="bar" class="text-white">Barra</label>
+          </div>
+          <div class="flex items-center mt-2">
+            <input type="checkbox" id="pie" [(ngModel)]="tiposGraficos.pie" class="mr-2">
+            <label for="pie" class="text-white">Pastel</label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Botón de generación de gráfico -->
+      <div class="mt-4">
+        <button (click)="generarGrafico()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Generar Gráfico</button>
+      </div>
+  
+      <!-- Área para mostrar el gráfico generado -->
+      <div *ngIf="graficoBarra || graficoPastel" class="mt-6 p-4 bg-white rounded-lg shadow-lg">
+        <svg id="grafico-svg" width="600" height="400"></svg>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+
+  <!-- Task List -->
+  <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-8 rounded-lg h-full row-span-2">
+      <h2 class="text-lg font-semibold">Listado de tareas</h2>
+      <div class="mt-4 bg-white text-gray-900 p-4 rounded-md">
+          <h3 class="font-semibold">Título</h3>
+          <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button class="mt-2 bg-purple-700 px-4 py-1 rounded-md text-white hover:bg-purple-800">Completado</button>
+      </div>
+      <div class="mt-4 bg-white text-gray-900 p-4 rounded-md">
+          <h3 class="font-semibold">Título</h3>
+          <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button class="mt-2 bg-purple-700 px-4 py-1 rounded-md text-white hover:bg-purple-800">Completado</button>
+      </div>
+  </div>
+  
+</div>
+
+</div>
+
+  

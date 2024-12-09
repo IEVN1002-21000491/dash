@@ -1,0 +1,159 @@
+<div class="min-h-screen bg-gray-900 text-white font-sans">
+  <!-- Main Content -->
+  <div class="grid grid-cols-4 gap-4 p-6 auto-rows-fr">
+    <!-- User Info -->
+    <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg text-center h-full row-span-2 flex flex-col items-center justify-center">
+      <img src="images/chango.png" alt="Usuario" class="w-25 h-25 rounded-full">
+      <h4 class="mt-4 text-lg text-white">¡Hola de nuevo!</h4>
+      <div class="mt-6 flex justify-center space-x-4">
+        <a href="mailto:correo@ejemplo.com" class="bg-blue-600 p-2 rounded-full hover:bg-blue-700">
+          <img src="images/email.png" alt="Correo" class="w-6 h-6">
+        </a>
+        <a href="https://static.vecteezy.com/system/resources/previews/012/162/809/non_2x/whatsapp-logo-3d-render-free-png.png" class="bg-green-600 p-2 rounded-full hover:bg-green-700">
+          <img src="images/what.png" alt="WhatsApp" class="w-6 h-6">
+        </a>
+      </div>
+    </div>
+
+    <!-- Task Form -->
+    <div class="col-span-2 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Lista de Clientes</h2>
+        <button
+          class="btn bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg"
+          (click)="toggleFormulario()"
+        >
+          Agregar Cliente
+        </button>
+      </div>
+
+      <!-- Formulario para agregar clientes -->
+      <div *ngIf="mostrandoFormulario" class="bg-gray-800 p-4 rounded-lg mb-4">
+        <h3 class="text-lg font-medium mb-2">Nuevo Cliente</h3>
+        <form [formGroup]="formulario" (ngSubmit)="agregarCliente()">
+          <div class="mb-4">
+            <label for="nombre" class="block text-sm font-medium">Nombre:</label>
+            <input
+              type="text"
+              id="nombre"
+              formControlName="nombre"
+              class="form-control bg-gray-700 border-gray-600 text-white px-4 py-2 rounded-md w-full"
+              placeholder="Ingrese el nombre"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="correo" class="block text-sm font-medium">Correo:</label>
+            <input
+              type="email"
+              id="correo"
+              formControlName="correo"
+              class="form-control bg-gray-700 border-gray-600 text-white px-4 py-2 rounded-md w-full"
+              placeholder="Ingrese el correo"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="contrasena" class="block text-sm font-medium">Contraseña:</label>
+            <input
+              type="password"
+              id="contrasena"
+              formControlName="contrasena"
+              class="form-control bg-gray-700 border-gray-600 text-white px-4 py-2 rounded-md w-full"
+              placeholder="Ingrese la contraseña"
+            />
+          </div>
+          <div class="flex justify-between">
+            <button type="submit" class="btn bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded-lg">
+              Confirmar
+            </button>
+            <button
+              type="button"
+              class="btn bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg"
+              (click)="toggleFormulario()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tabla de clientes -->
+      <div class="table-responsive" *ngIf="clientes.length">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let cliente of clientes"
+              [hidden]="clienteEnEdicion !== null && clienteEnEdicion !== cliente.id"
+            >
+              <td>{{ cliente.id }}</td>
+              <td>
+                <input
+                  [(ngModel)]="cliente.nombre"
+                  class="form-control text-black"
+                  type="text"
+                  [readonly]="clienteEnEdicion !== cliente.id"
+                />
+              </td>
+              <td>
+                <input
+                  [(ngModel)]="cliente.correo"
+                  class="form-control text-black"
+                  type="email"
+                  [readonly]="clienteEnEdicion !== cliente.id"
+                />
+              </td>
+              <td class="flex space-x-2">
+                <button
+                  *ngIf="clienteEnEdicion === cliente.id"
+                  class="text-white bg-green-700 hover:bg-green-800 px-4 py-2 rounded-lg"
+                  (click)="actualizarCliente(cliente)"
+                >
+                  Guardar
+                </button>
+                <button
+                  *ngIf="clienteEnEdicion === cliente.id"
+                  class="text-white bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-lg"
+                  (click)="cancelarEdicion()"
+                >
+                  Cancelar
+                </button>
+                <button
+                  *ngIf="clienteEnEdicion !== cliente.id"
+                  class="text-white bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg"
+                  (click)="editarCliente(cliente.id)"
+                >
+                  Editar
+                </button>
+                <button
+                  *ngIf="clienteEnEdicion !== cliente.id"
+                  class="text-white bg-red-700 hover:bg-red-800 px-4 py-2 rounded-lg"
+                  (click)="eliminarCliente(cliente.id)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p *ngIf="!clientes.length">Cargando clientes...</p>
+    </div>
+
+    <!-- Task List -->
+    <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-8 rounded-lg h-full row-span-2">
+      <h2 class="text-lg font-semibold">Listado de tareas</h2>
+      <div class="mt-4 bg-white text-gray-900 p-4 rounded-md">
+        <h3 class="font-semibold">Título</h3>
+        <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        <button class="mt-2 bg-purple-700 px-4 py-1 rounded-md text-white hover:bg-purple-800">Completado</button>
+      </div>
+    </div>
+  </div>
+</div>

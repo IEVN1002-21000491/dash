@@ -1,0 +1,81 @@
+<div class="min-h-screen bg-gray-900 text-white font-sans">
+  <!-- Main Content -->
+<div class="grid grid-cols-4 gap-4 p-6 auto-rows-fr">
+  <!-- User Info -->
+  <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg text-center h-full row-span-2 flex flex-col items-center justify-center">
+    <img src="images/chango.png" alt="Usuario" class="w-25 h-25 rounded-full">
+    <h4 class="mt-4 text-lg text-white">¡Hola de nuevo!</h4>
+    <div class="mt-6 flex justify-center space-x-4">
+        <a href="mailto:correo@ejemplo.com" class="bg-blue-600 p-2 rounded-full hover:bg-blue-700">
+            <img src="images/email.png" alt="Correo" class="w-6 h-6">
+        </a>
+        <a href="https://static.vecteezy.com/system/resources/previews/012/162/809/non_2x/whatsapp-logo-3d-render-free-png.png" class="bg-green-600 p-2 rounded-full hover:bg-green-700">
+            <img src="images/what.png" alt="WhatsApp" class="w-6 h-6">
+        </a>
+    </div>
+</div>
+
+  <!-- Task Form -->
+  <div class="col-span-2 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
+      <h1 class="text-3xl font-bold text-center text-blue-800 mb-6">Gestión de Videos</h1>
+      <form (submit)="onSubmit($event)" class="grid grid-cols-2 gap-4 mb-6">
+        <input type="file" (change)="onFileSelected($event)" accept="video/*" required class="p-2 border rounded-md"/>
+        <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 w-full">Subir Video</button>
+      </form>
+  
+      <div *ngIf="uploadResponse" class="mt-4 text-center text-green-600">{{ uploadResponse.message }}</div>
+  
+      <div *ngIf="currentVideo; else noVideo" class="grid grid-cols-2 gap-8 mt-8">
+        <!-- Columna para el video -->
+        <div class="flex justify-center items-center">
+          <video [src]="'http://localhost:5000' + currentVideo" controls width="640" height="360" class="mx-auto mb-4"></video>
+        </div>
+  
+        <!-- Columna para los botones -->
+        <div class="flex justify-center items-center flex-col">
+          <h2 class="text-2xl font-semibold mb-4">Lista de Videos</h2>
+          <div *ngIf="videos.length > 0; else noVideos" class="space-y-4">
+            <ul>
+              <li *ngFor="let video of videos" class="text-center">
+                <button (click)="cambiarVideo(video.ruta)" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 w-full">
+                  {{ video.nombre }}
+                </button>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noVideos>
+            <p class="text-center mt-4 text-gray-500">No hay videos disponibles.</p>
+          </ng-template>
+        </div>
+      </div>
+  
+      <ng-template #noVideo>
+        <p class="text-center mt-4 text-gray-500">No hay videos disponibles para reproducir.</p>
+      </ng-template>
+    </div>
+  </div>
+  
+  
+  
+
+  <!-- Task List -->
+  <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-8 rounded-lg h-full row-span-2">
+      <h2 class="text-lg font-semibold">Listado de tareas</h2>
+      <div class="mt-4 bg-white text-gray-900 p-4 rounded-md">
+          <h3 class="font-semibold">Título</h3>
+          <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button class="mt-2 bg-purple-700 px-4 py-1 rounded-md text-white hover:bg-purple-800">Completado</button>
+      </div>
+      <div class="mt-4 bg-white text-gray-900 p-4 rounded-md">
+          <h3 class="font-semibold">Título</h3>
+          <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button class="mt-2 bg-purple-700 px-4 py-1 rounded-md text-white hover:bg-purple-800">Completado</button>
+      </div>
+  </div>
+  
+</div>
+
+</div>
+
+  

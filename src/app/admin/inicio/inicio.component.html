@@ -1,0 +1,88 @@
+<div class="min-h-screen bg-gray-900 text-white font-sans">
+    <!-- Main Content -->
+  <div class="grid grid-cols-4 gap-4 p-6 auto-rows-fr">
+    <!-- User Info -->
+    <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg text-center h-full row-span-2 flex flex-col items-center justify-center">
+      <img src="images/chango.png" alt="Usuario" class="w-25 h-25 rounded-full">
+      <h4 class="mt-4 text-lg text-white">¡Hola de nuevo!</h4>
+      <div class="mt-6 flex justify-center space-x-4">
+          <a href="mailto:correo@ejemplo.com" class="bg-blue-600 p-2 rounded-full hover:bg-blue-700">
+              <img src="images/email.png" alt="Correo" class="w-6 h-6">
+          </a>
+          <a href="https://static.vecteezy.com/system/resources/previews/012/162/809/non_2x/whatsapp-logo-3d-render-free-png.png" class="bg-green-600 p-2 rounded-full hover:bg-green-700">
+              <img src="images/what.png" alt="WhatsApp" class="w-6 h-6">
+          </a>
+      </div>
+  </div>
+  
+  
+
+ <!-- Task Form -->
+<div class="col-span-2 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg">
+  <h2 class="text-lg font-semibold">Agregar nueva tarea</h2>
+  <form class="mt-4 space-y-4" (ngSubmit)="addTask()">
+      <input type="text" [(ngModel)]="newTask.title" name="title" placeholder="Título" class="w-full p-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500" required>
+      <textarea [(ngModel)]="newTask.description" name="description" placeholder="Descripción" class="w-full p-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500" required></textarea>
+      <button type="submit" class="w-full bg-purple-700 py-2 rounded-md hover:bg-purple-800">Agregar</button>
+  </form>
+</div>
+
+<!-- Task List -->
+<div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-8 rounded-lg h-full row-span-2">
+  <h2 class="text-lg font-semibold">Listado de tareas</h2>
+  <div *ngFor="let task of tasks; let i = index" class="mt-4 bg-white text-gray-900 p-4 rounded-md">
+      <h3 class="font-semibold">{{ task.title }}</h3>
+      <p class="text-sm">{{ task.description }}</p>
+      <button (click)="completeTask(i)" class="mt-2 bg-purple-700 px-4 py-1 rounded-md text-white hover:bg-purple-800">Completado</button>
+  </div>
+</div>
+
+    <!-- Calendar -->
+    <div class="col-span-1 bg-gradient-to-b from-blue-800 to-purple-800 p-4 rounded-lg">
+      <h2 class="text-lg font-semibold text-white text-center">Calendario</h2>
+      <div class="bg-white p-4 rounded-lg shadow mt-4">
+        <div class="text-center mb-2">
+          <h3 class="text-sm font-semibold text-black">{{ mesActual | titlecase }} {{ anioActual }}</h3>
+        </div>
+        <div class="grid grid-cols-7 gap-1 text-center text-xs font-medium text-black">
+          <!-- Días de la semana -->
+          <span class="font-bold">S</span>
+          <span class="font-bold">M</span>
+          <span class="font-bold">T</span>
+          <span class="font-bold">W</span>
+          <span class="font-bold">T</span>
+          <span class="font-bold">F</span>
+          <span class="font-bold">S</span>
+    
+          <!-- Días del mes -->
+          <ng-container *ngFor="let dia of diasCalendario">
+            <span
+              [class]="'p-1 rounded ' + (dia.esHoy ? 'bg-blue-500 text-white' : dia.esMesActual ? 'text-black' : 'text-gray-400')"
+            >
+              {{ dia.dia }}
+            </span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    
+    
+
+    <!-- Time -->
+    <div class="flex-1 bg-gradient-to-b from-blue-800 to-purple-800 p-6 rounded-lg flex flex-col items-center justify-center">
+      <!-- Reloj Digital -->
+      <h2 class="text-lg font-semibold text-purple-300">
+        {{ hora }}
+      </h2>
+      <!-- Reloj Analógico -->
+      <div class="clock">
+        <div class="hand hour-hand"></div>
+        <div class="hand minute-hand"></div>
+        <div class="hand second-hand"></div>
+        <div class="center-dot"></div>
+      </div>
+    </div>
+    
+</div>
+
+</div>

@@ -1,0 +1,49 @@
+.clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 10px solid rgba(255, 105, 180, 0.8); /* Neon rosado */
+    border-radius: 50%;
+    background: none;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.8), 0 0 40px rgba(255, 105, 180, 0.8), 0 0 80px rgba(255, 105, 180, 0.8);
+    margin-top: 20px;
+  }
+  
+  .hand {
+    position: absolute;
+    width: 40%; /* Longitud de las manecillas */
+    height: 6px; /* Grosor de las manecillas */
+    background: rgba(255, 105, 180, 0.8); /* Neon rosado */
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 50%; /* Rotación desde el extremo izquierdo */
+    transform: rotate(90deg); /* Rotación inicial */
+    transition: all 0.05s cubic-bezier(0.4, 2.3, 0.3, 1);
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+  }
+  
+  .hour-hand {
+    height: 6px; /* Más gruesa */
+  }
+  
+  .minute-hand {
+    height: 4px;
+  }
+  
+  .second-hand {
+    height: 2px; /* Más delgada */
+    background: rgba(255, 182, 193, 0.9); /* Un tono más claro para el contraste */
+  }
+  
+  .center-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 105, 180, 0.8); /* Neon rosado */
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+  }
+  
